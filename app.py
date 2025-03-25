@@ -74,17 +74,17 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX])
 
 app.layout = dbc.Container([
     dbc.Navbar(
-    dbc.Container([
-        html.Div([
-            html.H3("U.S. Diabetes Insights (BRFSS 2015)", className="mb-0 text-white"),
-            html.P("Explore diabetes prevalence by age, income, sex, and education using BRFSS 2015 data.",
-                   className="mb-0 text-white-50", style={"fontSize": "0.9rem"})
-        ])
-    ]),
-    color="primary",
-    dark=True,
-    className="mb-4"
-),
+        dbc.Container([
+            html.Div([
+                html.H3("U.S. Diabetes Insights (BRFSS 2015)", className="mb-0 text-white"),
+                html.P("Explore diabetes prevalence by age, income, sex, and education using BRFSS 2015 data.",
+                       className="mb-0 text-white-50", style={"fontSize": "0.9rem"})
+            ])
+        ]),
+        color="primary",
+        dark=True,
+        className="mb-4"
+    ),
 
     dbc.Row([
         dbc.Col([
@@ -116,50 +116,55 @@ app.layout = dbc.Container([
         ], width=3),
 
         dbc.Col([
-            dbc.Row([
-                dbc.Col(dbc.Card([
-                    dbc.CardHeader("Diabetes Status Distribution"),
-                    dbc.CardBody(dcc.Graph(id='diabetes-pie'))
-                ]), width=12)
-            ], className="mb-4"),
+            dcc.Loading(
+                type="circle",
+                children=[
+                    dbc.Row([
+                        dbc.Col(dbc.Card([
+                            dbc.CardHeader("Diabetes Status Distribution"),
+                            dbc.CardBody(dcc.Graph(id='diabetes-pie'))
+                        ]), width=12)
+                    ], className="mb-4"),
 
-            dbc.Row([
-                dbc.Col(dbc.Card([
-                    dbc.CardHeader("Diabetes by Gender"),
-                    dbc.CardBody(dcc.Graph(id='diabetes-bar'))
-                ]), width=12)
-            ], className="mb-4"),
+                    dbc.Row([
+                        dbc.Col(dbc.Card([
+                            dbc.CardHeader("Diabetes by Gender"),
+                            dbc.CardBody(dcc.Graph(id='diabetes-bar'))
+                        ]), width=12)
+                    ], className="mb-4"),
 
-            dbc.Row([
-                dbc.Col(dbc.Card([
-                    dbc.CardHeader("Average BMI by Diabetes Status"),
-                    dbc.CardBody(dcc.Graph(id='bmi-violin'))
-                ]), width=12)
-            ], className="mb-4"),
+                    dbc.Row([
+                        dbc.Col(dbc.Card([
+                            dbc.CardHeader("Average BMI by Diabetes Status"),
+                            dbc.CardBody(dcc.Graph(id='bmi-violin'))
+                        ]), width=12)
+                    ], className="mb-4"),
 
-            dbc.Row([
-                dbc.Col(dbc.Card([
-                    dbc.CardHeader(id="record-count"),
-                    dbc.CardBody(dash_table.DataTable(
-                        id='filtered-table',
-                        page_size=10,
-                        style_table={'overflowX': 'auto'},
-                        style_cell={'textAlign': 'left'}
-                    ))
-                ]), width=12)
-            ])
+                    dbc.Row([
+                        dbc.Col(dbc.Card([
+                            dbc.CardHeader(id="record-count"),
+                            dbc.CardBody(dash_table.DataTable(
+                                id='filtered-table',
+                                page_size=10,
+                                style_table={'overflowX': 'auto'},
+                                style_cell={'textAlign': 'left'}
+                            ))
+                        ]), width=12)
+                    ])
+                ]
+            )
         ], width=9)
     ]),
 
-   dbc.Row([
-    dbc.Col(
-        html.Footer("Data Source: Behavioral Risk Factor Surveillance System (BRFSS) for 2015"),
-        width=12,
-        className="text-center text-muted my-4"
-    )
-])
-
+    dbc.Row([
+        dbc.Col(
+            html.Footer("Data Source: Behavioral Risk Factor Surveillance System (BRFSS) for 2015"),
+            width=12,
+            className="text-center text-muted my-4"
+        )
+    ])
 ], fluid=True)
+
 
 @app.callback(
     [Output('diabetes-pie', 'figure'),
