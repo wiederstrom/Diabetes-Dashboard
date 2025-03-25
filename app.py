@@ -208,7 +208,7 @@ def update_graphs(sex, age, edu, income):
     return pie_fig, bar_fig, violin_fig, table_data, table_columns, record_info
 
 
-port = int(os.environ.get("PORT", 8050)))
+port = int(os.environ.get("PORT", 8050))
 
 if __name__ == '__main__':
     app.run_server(host="0.0.0.0", port=port)
