@@ -1,4 +1,5 @@
 import dash
+import os
 from dash import dcc, html, Input, Output, dash_table
 import dash_bootstrap_components as dbc
 import pandas as pd
@@ -206,7 +207,10 @@ def update_graphs(sex, age, edu, income):
 
     return pie_fig, bar_fig, violin_fig, table_data, table_columns, record_info
 
+
+port = int(os.environ.get("PORT", 8050)))
+
 if __name__ == '__main__':
-    app.run()
+    app.run_server(host="0.0.0.0", port=port)
 
 
