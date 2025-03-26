@@ -128,7 +128,7 @@ app.layout = dbc.Container([
 
                     dbc.Row([
                         dbc.Col(dbc.Card([
-                            dbc.CardHeader("Diabetes by Gender"),
+                            dbc.CardHeader("Diabetes Status Counts"),
                             dbc.CardBody(dcc.Graph(id='diabetes-bar'))
                         ]), width=12)
                     ], className="mb-4"),
