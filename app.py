@@ -187,7 +187,7 @@ def update_graphs(sex, age, edu, income):
     if edu:
         dff = dff[dff['Education Level'].isin(edu)]
     if income:
-        dff = dff[dff['Income_Level'].isin(income)]
+        dff = dff[dff['Income Level'].isin(income)]
 
     pie_fig = px.pie(dff, names='Diabetes Status', template='plotly_white', hover_data=None)
     pie_fig.update_traces(textinfo='label+percent', hovertemplate='%{label}<extra></extra>')
@@ -204,7 +204,7 @@ def update_graphs(sex, age, edu, income):
                            template='plotly_white')
     violin_fig.update_layout(title=None, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
 
-    preview = dff[['Diabetes Status', 'Sex Label', 'Age Group', 'Education Level', 'Income_Level', 'BMI', 'General Health']]
+    preview = dff[['Diabetes Status', 'Sex Label', 'Age Group', 'Education Level', 'Income Level', 'BMI', 'General Health']]
     table_data = preview.to_dict('records')
     table_columns = [{"name": col.replace('_', ' '), "id": col} for col in preview.columns]
 
