@@ -63,12 +63,12 @@ income_map = {
     8: '$75,000 or more'
 }
 
-df['Diabetes_Status'] = df['Diabetes_012'].map(diabetes_map)
-df['General_Health'] = df['GenHlth'].map(general_health_map)
-df['Sex_Label'] = df['Sex'].map(sex_map)
-df['Age_Group'] = df['Age'].map(age_map)
-df['Education_Level'] = df['Education'].map(eduacation_map)
-df['Income_Level'] = df['Income'].map(income_map)
+df['Diabetes Status'] = df['Diabetes_012'].map(diabetes_map)
+df['General Health'] = df['GenHlth'].map(general_health_map)
+df['Sex Label'] = df['Sex'].map(sex_map)
+df['Age Group'] = df['Age'].map(age_map)
+df['Education Level'] = df['Education'].map(eduacation_map)
+df['Income Level'] = df['Income'].map(income_map)
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX])
 
@@ -77,7 +77,7 @@ app.layout = dbc.Container([
         dbc.Container([
             html.Div([
                 html.H3("U.S. Diabetes Insights (BRFSS 2015)", className="mb-0 text-white"),
-                html.P("Explore diabetes prevalence by age, income, sex, and education using BRFSS 2015 data.",
+                html.P("Explore diabetes prevalence by age, income, gender, and education using BRFSS 2015 data.",
                        className="mb-0 text-white-50", style={"fontSize": "0.9rem"})
             ])
         ]),
@@ -90,9 +90,9 @@ app.layout = dbc.Container([
         dbc.Col([
             html.H5("Filters", className="mb-2"),
 
-            dbc.Label("Sex"),
+            dbc.Label("Gender"),
             dcc.Dropdown(
-                options=[{"label": sex, "value": sex} for sex in sorted(df['Sex_Label'].unique())],
+                options=[{"label": sex, "value": sex} for sex in sorted(df['Sex Label'].unique())],
                 id='sex-filter', multi=True
             ),
 
@@ -181,30 +181,30 @@ app.layout = dbc.Container([
 def update_graphs(sex, age, edu, income):
     dff = df.copy()
     if sex:
-        dff = dff[dff['Sex_Label'].isin(sex)]
+        dff = dff[dff['Sex Label'].isin(sex)]
     if age:
-        dff = dff[dff['Age_Group'].isin(age)]
+        dff = dff[dff['Age Group'].isin(age)]
     if edu:
-        dff = dff[dff['Education_Level'].isin(edu)]
+        dff = dff[dff['Education Level'].isin(edu)]
     if income:
         dff = dff[dff['Income_Level'].isin(income)]
 
-    pie_fig = px.pie(dff, names='Diabetes_Status', template='plotly_white', hover_data=None)
+    pie_fig = px.pie(dff, names='Diabetes Status', template='plotly_white', hover_data=None)
     pie_fig.update_traces(textinfo='label+percent', hovertemplate='%{label}<extra></extra>')
     pie_fig.update_layout(title=None, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
 
-    bar_df = dff.groupby(['Sex_Label', 'Diabetes_Status']).size().reset_index(name='Count')
-    bar_fig = px.bar(bar_df, x='Sex_Label', y='Count', color='Diabetes_Status',
+    bar_df = dff.groupby(['Sex Label', 'Diabetes Status']).size().reset_index(name='Count')
+    bar_fig = px.bar(bar_df, x='Sex Label', y='Count', color='Diabetes Status',
                      barmode='stack', template='plotly_white',
-                     hover_data={'Sex_Label': False, 'Diabetes_Status': False, 'Count': True})
+                     hover_data={'Sex Label': False, 'Diabetes Status': False, 'Count': True})
     bar_fig.update_traces(hovertemplate='Status: %{customdata[0]}<br>Count: %{y}<extra></extra>')
     bar_fig.update_layout(title=None, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
 
-    violin_fig = px.violin(dff, x='Diabetes_Status', y='BMI', box=True, points=False,
+    violin_fig = px.violin(dff, x='Diabetes Status', y='BMI', box=True, points=False,
                            template='plotly_white')
     violin_fig.update_layout(title=None, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
 
-    preview = dff[['Diabetes_Status', 'Sex_Label', 'Age_Group', 'Education_Level', 'Income_Level', 'BMI']]
+    preview = dff[['Diabetes Status', 'Sex Label', 'Age Group', 'Education Level', 'Income_Level', 'BMI', 'General Health']]
     table_data = preview.to_dict('records')
     table_columns = [{"name": col.replace('_', ' '), "id": col} for col in preview.columns]
 
