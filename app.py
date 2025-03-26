@@ -203,7 +203,6 @@ def update_graphs(sex, age, edu, income):
         text='Count',
         template='plotly_white',
         color='Diabetes Status',
-        color_discrete_sequence=px.colors.qualitative.Safe
     )
     bar_fig.update_traces(textposition='outside')
     bar_fig.update_layout(
