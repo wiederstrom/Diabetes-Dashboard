@@ -193,12 +193,25 @@ def update_graphs(sex, age, edu, income):
     pie_fig.update_traces(textinfo='label+percent', hovertemplate='%{label}<extra></extra>')
     pie_fig.update_layout(title=None, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
 
-    bar_df = dff.groupby(['Sex Label', 'Diabetes Status']).size().reset_index(name='Count')
-    bar_fig = px.bar(bar_df, x='Sex Label', y='Count', color='Diabetes Status',
-                     barmode='stack', template='plotly_white',
-                     hover_data={'Sex Label': False, 'Diabetes Status': False, 'Count': True})
-    bar_fig.update_traces(hovertemplate='Status: %{customdata[0]}<br>Count: %{y}<extra></extra>')
-    bar_fig.update_layout(title=None, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+    bar_df = dff['Diabetes Status'].value_counts().reset_index()
+    bar_df.columns = ['Diabetes Status', 'Count']
+
+    bar_fig = px.bar(
+        bar_df,
+        x='Diabetes Status',
+        y='Count',
+        text='Count',
+        template='plotly_white',
+        color='Diabetes Status',
+        color_discrete_sequence=px.colors.qualitative.Safe
+    )
+    bar_fig.update_traces(textposition='outside')
+    bar_fig.update_layout(
+        title=None,
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        showlegend=False
+    )
 
     violin_fig = px.violin(dff, x='Diabetes Status', y='BMI', box=True, points=False,
                            template='plotly_white')
