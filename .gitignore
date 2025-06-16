@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+.env/
+env/
+*.env
+
+# macOS system files
+.DS_Store
+
+# VSCode and PyCharm settings
+.vscode/
+.idea/
+
+# Logs and temp files
+*.log
+*.sqlite3
+*.tmp
+
+# Dash / Flask upload/debug files
+dash-debug.log

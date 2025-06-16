@@ -6,7 +6,7 @@ import pandas as pd
 import plotly.express as px
 
 
-df = pd.read_csv('diabetes_012_health_indicators_BRFSS2015.csv')
+df = pd.read_csv('data/diabetes_012_health_indicators_BRFSS2015.csv')
 
 diabetes_map = {
     0: 'No Diabetes',
