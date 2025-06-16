@@ -88,5 +88,4 @@ Diabetes-Dashboard/
 
 **Erik Lunde Wiederstrøm**\
 Bachelor in Applied Data Science, 2025\
-UC3DVS101: Data Visualisation\
 [LinkedIn](https://linkedin.com/in/wiederstrom)
