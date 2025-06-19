@@ -8,7 +8,7 @@ The dashboard was built using the Behavioral Risk Factor Surveillance System (BR
 
 The dashboard allows users to:
 
-- Explore diabetes prevalence by gender, age group, and income
+- Explore diabetes prevalence by gender, age group, education and income
 - Compare regional and lifestyle-related factors
 - Identify trends and potential correlations visually
 
