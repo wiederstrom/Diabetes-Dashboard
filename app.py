@@ -71,6 +71,7 @@ df['Education Level'] = df['Education'].map(eduacation_map)
 df['Income Level'] = df['Income'].map(income_map)
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX])
+server = app.server
 
 app.layout = dbc.Container([
     dbc.Navbar(
